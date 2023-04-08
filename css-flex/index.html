@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/moose.png" type="image/x-icon">
+    <title>Doug's CSS Flex Playground</title>
+    <style>
+        * {
+            font-family: monospace;
+        }
+        main {
+            display: flex;
+        }
+        #input {
+            background-color: #d4d4d4;
+            flex-grow: 1;
+            padding: 10px;
+        }
+        #output {
+            background-color: #1b1b1b;
+            padding: 10px;
+            width: 67%;
+        }
+
+        #container-label {
+            background-color: #b700ff;
+            color: white;
+            display: inline-block;
+            padding: 5px 5px 0 5px;
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        #flex-container {
+            display: flex;
+            padding: 10px;
+            border: 5px solid #b700ff;
+            transition: all .250s ease;
+            min-height: 800px;
+        }
+
+        .flex-item {
+            flex-basis: 150px;
+            border: 1px solid rgba(183, 0, 255, 0.363);
+            background-color: rgb(206, 255, 30);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            transition: all .250s ease;
+        }
+
+        .flex-item div {
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem;
+            background-color: rgb(228, 228, 228);
+        }
+        nav > * {
+            padding: 1rem;
+            color: black;
+        }
+
+        nav a:hover {
+            text-decoration: none;
+            outline: 1px dotted black;
+        }
+
+        nav h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">Guide to flexbox (new tab)</a>
+        <div style="flex-grow: 1;"></div>
+        <h1>
+            Doug's CSS Flexbox Playground
+        </h1>
+    </nav>
+    <main>
+        <div id="input">
+            <pre>#flex-container {
+                    display: <select data-container="display">
+                        <option value="flex">flex</option>
+                        <option value="block">block</option>
+                    </select>;
+                    flex-wrap: <select data-container="flex-wrap">
+                        <option value="nowrap">nowrap</option>
+                        <option value="wrap">wrap</option>
+                    </select>;
+                    flex-direction: <select data-container="flex-direction">
+                        <option value="row">row</option>
+                        <option value="column">column</option>
+                        <option value="row-reverse">row-reverse</option>
+                        <option value="column-reverse">column-reverse</option>
+                    </select>;
+                    gap: <select data-container="gap">
+                        <option value="0">0</option>
+                        <option value="10px">10px</option>
+                    </select>;
+
+                    justify-content: <select data-container="justify-content">
+                        <option value="start">start</option>
+                        <option value="center">center</option>
+                        <option value="end">end</option>
+                        <option value="space-between">space-between</option>
+                        <option value="space-around">space-around</option>
+                        <option value="space-evenly">space-evenly</option>
+                    </select>;
+                    align-content: <select data-container="align-content">
+                        <option value="normal">normal</option>
+                        <option value="start">start</option>
+                        <option value="center">center</option>
+                        <option value="end">end</option>
+                        <option value="space-around">space-around</option>
+                        <option value="space-between">space-between</option>
+                        <option value="space-evenly">space-evenly</option>
+                        <option value="stretch">stretch</option>
+                    </select>;
+
+                    align-items: <select data-container="align-items">
+                        <option value="start">start</option>
+                        <option value="center">center</option>
+                        <option value="baseline">baseline</option>
+                        <option value="end">end</option>
+                    </select>;
+                }
+            </pre>
+            <br><br>
+            <pre>.flex-item {
+                    flex-basis: <select data-item="flex-basis">
+                        <option value="150px">150px</option>
+                        <option value="300px">300px</option>
+                        <option value="33%">33%</option>
+                    </select>;
+                    flex-grow: <select data-item="flex-grow">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                    </select>;
+                    flex-shrink: <select data-item="flex-shrink">
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>;
+                }
+            </pre>
+        </div>
+        <div id="output">
+            <div id="container-label">
+                Flex container
+            </div>
+            <div id="flex-container">
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+            </div>
+        </div>
+    </main>
+    <script>
+        const containerSelects = document.querySelectorAll('select[data-container]')
+        const itemSelects = document.querySelectorAll('select[data-item]')
+        const container = document.querySelector('#flex-container')
+        const items = document.querySelectorAll('.flex-item')
+
+        containerSelects.forEach(sel => {
+            const attr = sel.getAttribute('data-container')
+            sel.value = sel.options[0].value
+            sel.addEventListener('change', e => {
+                const val = e.target.value
+                container.style[attr] = val
+            })
+        })
+
+        itemSelects.forEach(sel => {
+            const attr = sel.getAttribute('data-item')
+            sel.value = sel.options[0].value
+            sel.addEventListener('change', e => {
+                const val = e.target.value
+                items.forEach(item => {
+                    item.style[attr] = val
+                })
+            })
+        })
+
+        const heights = [50, 100, 150]
+        items.forEach((item, i) => {
+            item.innerHTML = `<div>flex item #${i+1}</div>`
+            const rh = heights[Math.floor(Math.random()*3)]
+            item.style.height = rh + 'px'
+        })
+    </script>
+</body>
+</html>
