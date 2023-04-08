@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 
+        https://cubic-bezier.com/
+    -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <title>Doug's CSS Transition Demo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+        }
+
+        .row > div:first-child {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .row > div:first-child > div {
+            width: 50px;
+            min-height: 50px;
+            position: absolute;
+        }
+
+        .row button {
+            width: 300px;
+            height: 100px;
+            padding: 1rem;
+            border: 0;
+            outline: 1px solid rgba(0,0,0,.25);
+            cursor: pointer;
+        }
+
+        .row button:hover {
+            background-color: #5ebe9e;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem;
+            background-color: rgb(228, 228, 228);
+        }
+
+        nav > * {
+            padding: 1rem;
+            color: black;
+        }
+
+        nav a:hover {
+            text-decoration: none;
+            outline: 1px dotted black;
+        }
+
+        nav h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="https://cubic-bezier.com/" target="_blank">cubic-bezier.com (new tab)</a>
+        <div style="flex-grow: 1;"></div>
+        <h1>
+            Doug's CSS Transition Demo
+        </h1>
+    </nav>
+    <div class="row">
+        <div><div></div></div>
+        <button>
+            linear
+        </button>
+    </div>
+    <div class="row">
+        <div><div></div></div>
+        <button>
+            ease
+        </button>
+    </div>
+    <div class="row">
+        <div><div></div></div>
+        <button>
+            ease-in
+        </button>
+    </div>
+    <div class="row">
+        <div><div></div></div>
+        <button>
+            ease-out
+        </button>
+    </div>
+    <div class="row">
+        <div><div></div></div>
+        <button>
+            ease-in-out
+        </button>
+    </div>
+
+    <div class="row">
+        <div><div></div></div>
+        <button>
+            cubic-bezier(1,0,0,1)
+        </button>
+    </div>
+
+    <div class="row">
+        <div><div></div></div>
+        <button>
+            cubic-bezier(0,1,1,0)
+        </button>
+    </div>
+
+    <div class="row">
+        <div><div></div></div>
+        <button>
+            steps(4, start)
+        </button>
+    </div>
+
+    <div class="row">
+        <div><div></div></div>
+        <button>
+            steps(6, end)
+        </button>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll('button')
+        const squares = document.querySelectorAll('.row > div:first-child > div')
+        buttons.forEach((button, buttonIndex)=>{
+
+            const curve = button.innerText
+            const row = button.parentElement
+            const square = row.querySelector(':scope > div:first-child > div')
+
+            square.style.left = '0px'
+            square.style.transition = `all 1s ${curve}`
+            square.style.backgroundColor = 'purple'
+            
+            button.addEventListener('click',e=>{
+                square.style.left = square.style.left === '0px' ? 'calc(100% - 50px)' : '0px'
+                square.style.backgroundColor = square.style.backgroundColor === 'purple' ? 'green' : 'purple'
+        })})
+    </script>
+</body>
+</html>
