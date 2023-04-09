@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/moose.png" type="image/x-icon">
+    <title>Doug's CSS Grid Playground</title>
+    <style>
+        * {
+            font-family: monospace;
+        }
+        main {
+            display: flex;
+        }
+        #input {
+            background-color: #d4d4d4;
+            flex-grow: 1;
+            padding: 10px;
+        }
+        #output {
+            background-color: #1b1b1b;
+            padding: 10px;
+            width: 67%;
+        }
+
+        #container-label {
+            background-color: #b700ff;
+            color: white;
+            display: inline-block;
+            padding: 5px 5px 0 5px;
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        #grid-container {
+            display: grid;
+            padding: 10px;
+            border: 5px solid #b700ff;
+            transition: all .250s ease;
+            min-height: 800px;
+        }
+
+        .grid-item {
+            border: 1px solid rgba(183, 0, 255, 0.363);
+            background-color: rgb(206, 255, 30);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            transition: all .250s ease;
+        }
+
+        .flex-item div {
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem;
+            background-color: rgb(228, 228, 228);
+        }
+        nav > * {
+            padding: 1rem;
+            color: black;
+        }
+
+        nav a:hover {
+            text-decoration: none;
+            outline: 1px dotted black;
+        }
+
+        nav h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">Guide to grid (new tab)</a>
+        <div style="flex-grow: 1;"></div>
+        <h1>
+            Doug's CSS Flexbox Playground
+        </h1>
+    </nav>
+    <main>
+        <div id="input">
+            <pre>#grid-container {
+                    display: <select data-container="display">
+                        <option value="grid">grid</option>
+                        <option value="block">block</option>
+                    </select>;
+                    grid-template-<button id="cr">columns</button>: <select data-container="grid-template-columns" id="cr-sel">
+                        <option value="unset">unset</option>
+                        <option value="1fr 1fr 1fr">1fr 1fr 1fr</option>
+                        <option value="1fr 2fr 3fr">1fr 2fr 3fr</option>
+                        <option value="5fr 1fr 3.5fr">5fr 1fr 3.5fr</option>
+                        <option value="repeat(5, 1fr)">repeat(5, 1fr)</option>
+                        <option value="100px 40% 17em 15ch">100px 40% 17em 15ch</option>
+
+                    </select>
+                    gap: <select data-container="gap">
+                        <option value="0">0</option>
+                        <option value="10px">10px</option>
+                    </select>;
+                }
+            </pre>
+            <br><br>
+            <pre>.grid-item {
+                }
+            </pre>
+        </div>
+        <div id="output">
+            <div id="container-label">
+                Grid container
+            </div>
+            <div id="grid-container">
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+            </div>
+        </div>
+    </main>
+    <script>
+        const containerSelects = document.querySelectorAll('select[data-container]')
+        const itemSelects = document.querySelectorAll('select[data-item]')
+        const container = document.querySelector('#grid-container')
+        const items = document.querySelectorAll('.grid-item')
+        const crBtn = document.getElementById('cr')
+        const crSel = document.getElementById('cr-sel')
+
+        containerSelects.forEach(sel => {
+            sel.value = sel.options[0].value
+            sel.addEventListener('change', e => {
+                const attr = sel.getAttribute('data-container')
+                const val = e.target.value
+                container.style[attr] = val
+            })
+        })
+
+        itemSelects.forEach(sel => {
+            const attr = sel.getAttribute('data-item')
+            sel.value = sel.options[0].value
+            sel.addEventListener('change', e => {
+                const val = e.target.value
+                items.forEach(item => {
+                    item.style[attr] = val
+                })
+            })
+        })
+
+        const heights = [50, 100, 150]
+        items.forEach((item, i) => {
+            item.innerHTML = `<div>grid item #${i+1}</div>`
+            const rh = heights[Math.floor(Math.random()*3)]
+            item.style.height = rh + 'px'
+        })
+
+        cr.addEventListener('click', () => {
+            if (cr.innerText === 'columns') {
+                cr.innerText = 'rows'
+                container.style['grid-template-columns'] = 'unset'
+                crSel.setAttribute('data-container', 'grid-template-rows')
+                container.style['grid-template-rows'] = crSel.value
+            } else {
+                cr.innerText = 'columns'
+                container.style['grid-template-rows'] = 'unset'
+                crSel.setAttribute('data-container', 'grid-template-columns')
+                container.style['grid-template-columns'] = crSel.value
+            }
+        })
+    </script>
+</body>
+</html>

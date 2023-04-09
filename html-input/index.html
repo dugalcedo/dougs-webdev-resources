@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: monospace;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem;
+            background-color: rgb(228, 228, 228);
+        }
+        nav > * {
+            padding: 1rem;
+            color: black;
+        }
+        
+        nav a:hover {
+            text-decoration: none;
+            outline: 1px dotted black;
+        }
+        
+        nav h1 {
+            margin: 0;
+        }
+
+        .demo {
+            display: grid;
+            grid-template-columns: 1fr 2fr 2fr 1fr;
+            margin: 2rem;
+            align-items: center;
+            
+            padding: 1rem;
+            border-radius: .5rem;
+            background-color: #c5e4c5;
+        }
+
+        .demo h3 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .demo:first-child {
+            opacity: .5;
+        }
+
+        .demo:nth-child(even) {
+            background-color: #e5cfe5;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <div style="flex-grow: 1;"></div>
+        <h1>
+            HTML Inputs
+        </h1>
+    </nav>
+    <main>
+        <div class="demo">
+            <h3>[type]</h3>
+            <div>
+                [output]
+            </div>
+            <div>
+                <code>
+                    [code]
+                </code>
+            </div>
+            <div>
+                [info]
+            </div>
+        </div>
+        <div class="demo">
+            <h3>text</h3>
+            <div>
+                <input>
+            </div>
+            <div>
+                <code>
+                    &lt;input&gt; <br>
+                    <i>(type="text" by default)</i>
+                </code>
+            </div>
+        </div>
+        <div class="demo">
+            <h3>password</h3>
+            <div>
+                <input type="password">
+            </div>
+            <code>
+                &lt;input type="password"&gt; <br>
+            </code>
+        </div>
+        <div class="demo">
+            <h3>email</h3>
+            <div>
+                <form class="demo-form">
+                    <input type="email">
+                    <button>submit</button>
+                </form>
+            </div>
+            <code>
+                &lt;input type="email"&gt; <br>
+                &lt;button&gt;submit&lt;/button&gt;
+            </code>
+            <div>
+                If user does not enter a valid email address, an error message will appear.
+            </div>
+        </div>
+        <div class="demo">
+            <h3>required<br>attribute</h3>
+            <div>
+                <form class="demo-form">
+                    <input type="text" required>
+                    <button>submit</button>
+                </form>
+            </div>
+            <code>
+                &lt;input type="text" required&gt; <br>
+                &lt;button&gt;submit&lt;/button&gt;
+            </code>
+            <div>
+                If user leaves blank, an error message will appear.
+            </div>
+        </div>
+        <div class="demo">
+            <h3>checkbox</h3>
+            <div>
+                <input type="checkbox">
+            </div>
+            <code>
+                &lt;input type="checkbox"&gt; <br>
+            </code>
+        </div>
+        <div class="demo">
+            <h3>radio</h3>
+            <div>
+                one <input type="radio" name="myInputName" value="option_a"> <br>
+                two <input type="radio" name="myInputName" value="option_b"> <br>
+                three <input type="radio" name="myInputName" value="option_c">
+            </div>
+            <code>
+                one &lt;input type="radio" name="myInputName" value="option_a"&gt; &lt;br&gt; <br>
+                two &lt;input type="radio" name="myInputName" value="option_b"&gt; &lt;br&gt; <br>
+                three &lt;input type="radio" name="myInputName" value="option_c"&gt; <br>
+            </code>
+            <div>
+                Link radio buttons together with identical values in the "name" attribute.
+            </div>
+        </div>
+        <div class="demo">
+            <h3>range</h3>
+            <div>
+                <input type="range">
+            </div>
+            <code>
+                &lt;input type="range"&gt;
+            </code>
+            <div>
+                Additional attributes: step, min, max
+            </div>
+        </div>
+        <div class="demo">
+            <h3>color</h3>
+            <div>
+                <input type="color">
+            </div>
+            <code>
+                &lt;input type="color"&gt;
+            </code>
+            <div>
+
+            </div>
+        </div>
+        <div class="demo">
+            <h3>number</h3>
+            <div>
+                <input type="number">
+            </div>
+            <code>
+                &lt;input type="number"&gt;
+            </code>
+            <div>
+                Additional attributes: step, min, max
+            </div>
+        </div>
+        <div class="demo">
+            <h3>select</h3>
+            <div>
+                <select>
+                    <option value="a">
+                        option 1
+                    </option>
+                    <option value="b">
+                        option 2
+                    </option>
+                    <option value="c">
+                        option 3
+                    </option>
+                </select>
+            </div>
+            <code>
+                &lt;select&gt; <br>
+                &nbsp;&nbsp;&lt;option value="a"&gt; <br>
+                &nbsp;&nbsp;option 1 <br>
+                &nbsp;&nbsp;&lt;/option&gt; <br>
+                &nbsp;&nbsp;&lt;option value="b"&gt; <br>
+                &nbsp;&nbsp;option 2 <br>
+                &nbsp;&nbsp;&lt;/option&gt; <br>
+                &nbsp;&nbsp;&lt;option value="c"&gt; <br>
+                &nbsp;&nbsp;option 3 <br>
+                &nbsp;&nbsp;&lt;/option&gt; <br>
+                &lt;/select&gt;
+            </code>
+            <div>
+
+            </div>
+        </div>
+        <div class="demo">
+            <h3>select<br>multiple</h3>
+            <div>
+                <select multiple>
+                    <option value="a">
+                        option 1
+                    </option>
+                    <option value="b">
+                        option 2
+                    </option>
+                    <option value="c">
+                        option 3
+                    </option>
+                </select>
+            </div>
+            <code>
+                &lt;select multiple&gt; <br>
+                &nbsp;&nbsp;&lt;option value="a"&gt; <br>
+                &nbsp;&nbsp;option 1 <br>
+                &nbsp;&nbsp;&lt;/option&gt; <br>
+                &nbsp;&nbsp;&lt;option value="b"&gt; <br>
+                &nbsp;&nbsp;option 2 <br>
+                &nbsp;&nbsp;&lt;/option&gt; <br>
+                &nbsp;&nbsp;&lt;option value="c"&gt; <br>
+                &nbsp;&nbsp;option 3 <br>
+                &nbsp;&nbsp;&lt;/option&gt; <br>
+                &lt;/select&gt;
+            </code>
+            <div>
+                User can CTRL/CMD+click to select multiple options.
+            </div>
+        </div>
+    </main>
+    <script>
+        const demoForms = document.querySelectorAll('.demo-form')
+        demoForms.forEach(form => {
+            form.addEventListener('submit', e => {
+                e.preventDefault()
+            })
+        })
+    </script>
+</body>
+</html>
