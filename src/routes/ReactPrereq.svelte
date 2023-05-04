@@ -213,21 +213,20 @@
             "quiz:Write how you would export a module, both in ES and CJS syntax. Then import."
         ]
     }
+    let saveDelay
 
     let chosenGroup = 'GENERAL'
 
     function update(target, groupName, name) {
         answers[groupName][name] = target.checked === undefined ? target.value : target.checked
-        console.log(answers)
+        save()
     }
 
     function save() {
-        if (saved) return
-        localStorage.setItem('react-prereq-answers', JSON.stringify(answers))
-        saved = true
-        setTimeout(() => {
-            saved = false
-        }, 1500);
+        clearTimeout(saveDelay)
+        saveDelay = setTimeout(() => {
+            localStorage.setItem('react-prereq-answers', JSON.stringify(answers))
+        }, 500);
     }
 
     onMount(()=>{
@@ -236,7 +235,6 @@
         answers = JSON.parse(savedAnswers)
     })
 
-    let saved = false
 </script>
 
 <div id="outer">
@@ -249,11 +247,6 @@
                 </button>
             {/each}
         </div>
-
-        <button class="wide" on:click={save}
-        disabled={saved ? true : false}>
-            {saved ? `Saved!` : `Save answers to localStorage`}
-        </button>
     
         {#each Object.entries(groups) as [groupName, group]}
             <div class="group" class:none={chosenGroup !== groupName}>
