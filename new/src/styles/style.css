@@ -1,0 +1,51 @@
+* {box-sizing: border-box;}
+
+* {
+    font-family: monospace;
+}
+
+html, body, #app {
+    height: 100%;
+}
+
+html {
+    font-size: 125%;
+}
+
+body {
+    margin: 0;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: #157d5b;
+    font-weight: 900;
+}
+
+header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: aquamarine;
+    user-select: none;
+}
+
+header a {
+    display: inline-block;
+    padding: 25px;
+    cursor: pointer;
+}
+
+header a:hover {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+main {
+    flex-grow: 1;
+    overflow-y: auto;
+}
