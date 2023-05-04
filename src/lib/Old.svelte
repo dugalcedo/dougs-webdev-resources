@@ -10,7 +10,7 @@
 
 
 {#if path}
-    <iframe src="/src/old/{path}/index.html" title={path} frameborder="0"></iframe>
+    <iframe src="/old/{path}/index.html" title={path} frameborder="0"></iframe>
 {/if}
 
 <style>
