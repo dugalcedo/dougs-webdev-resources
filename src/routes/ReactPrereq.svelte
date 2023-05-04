@@ -1,7 +1,9 @@
 <script>
-    import { each } from "svelte/internal";
+// @ts-nocheck
 
-    const answers = {
+    import { onMount } from "svelte/internal";
+
+    let answers = {
         "GENERAL": {},
         "HTML": {},
         "CSS": {},
@@ -213,6 +215,28 @@
     }
 
     let chosenGroup = 'GENERAL'
+
+    function update(target, groupName, name) {
+        answers[groupName][name] = target.checked === undefined ? target.value : target.checked
+        console.log(answers)
+    }
+
+    function save() {
+        if (saved) return
+        localStorage.setItem('react-prereq-answers', JSON.stringify(answers))
+        saved = true
+        setTimeout(() => {
+            saved = false
+        }, 1500);
+    }
+
+    onMount(()=>{
+        let savedAnswers = localStorage.getItem('react-prereq-answers')
+        if (!savedAnswers) return
+        answers = JSON.parse(savedAnswers)
+    })
+
+    let saved = false
 </script>
 
 <div id="outer">
@@ -225,6 +249,11 @@
                 </button>
             {/each}
         </div>
+
+        <button class="wide" on:click={save}
+        disabled={saved ? true : false}>
+            {saved ? `Saved!` : `Save answers to localStorage`}
+        </button>
     
         {#each Object.entries(groups) as [groupName, group]}
             <div class="group" class:none={chosenGroup !== groupName}>
@@ -236,12 +265,16 @@
                                 <div>
                                     {q}
                                 </div>
-                                <textarea />
+                                <textarea on:keyup={({ target }) => { update(target, groupName, groupItem) }}
+                                value={answers[groupName][groupItem] || ""}    
+                                />
                             {:else}
                                 <div>
                                     {groupItem}
                                 </div>
-                                <input type="checkbox">
+                                <input type="checkbox" on:change={({ target }) => { update(target, groupName, groupItem) }}
+                                checked={answers[groupName][groupItem] || false}
+                                >
                             {/if}
                         {:else}
                             <div>
@@ -256,7 +289,9 @@
                                 </ul>
                                 {/if}
                             </div>
-                            <input type="checkbox">
+                            <input type="checkbox" on:change={({ target }) => { update(target, groupName, groupItem.name) }}
+                            checked={answers[groupName][groupItem.name] || false}
+                            >
                         {/if}
                     </div>
                 {/each}
@@ -305,5 +340,12 @@
     }
     .group-tabs > .selected {
         background-color: rgb(54, 189, 144);
+    }
+    .wide {
+        cursor: pointer;
+        padding: .5rem;
+        background-color: aquamarine;
+        margin-bottom: 1rem;
+        width: 100%;
     }
 </style>
